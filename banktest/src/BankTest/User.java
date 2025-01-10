@@ -1,3 +1,5 @@
+package BankTest;
+
 public class User {
 
     private final int ssn;

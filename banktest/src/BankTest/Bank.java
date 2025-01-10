@@ -1,6 +1,11 @@
+package BankTest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import static BankTest.Account.AccountType.*;
+
 
 public class Bank {
 
@@ -58,8 +63,8 @@ public class Bank {
         int accountNr2 = 456;
         accountsMap.put(ssn, new HashMap<Integer,Account>(
                 Map.ofEntries(
-                        Map.entry(accountNr1, new Account(accountNr1, 1000)),
-                        Map.entry(accountNr2, new Account(accountNr2, 2000))
+                        Map.entry(accountNr1, new Account(accountNr1, 1000, INCOME)),
+                        Map.entry(accountNr2, new Account(accountNr2, 2000, SAVINGS))
                 )
             )
         );
@@ -112,6 +117,13 @@ public class Bank {
     public void listAccounts(){
         HashMap<Integer, Account> accounts = accountsMap.get(loggedInUser.getSSN());
         for(Account a : accounts.values()){
+            String accountTypeStr = "";
+            switch (a.getAccountType()){
+                case INCOME -> accountTypeStr = "Income";
+                case SAVINGS -> accountTypeStr = "Savings";
+            }
+
+            System.out.println("Account type: " + accountTypeStr);
             System.out.println("Account number: " + a.getAccountNr());
             System.out.println("Balance: " + a.getBalance());
         }
