@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,23 +8,36 @@ public class Bank {
     private HashMap<Integer, HashMap<Integer, Account>> accountsMap = new HashMap<>();
     private User loggedInUser;
 
-    public void login(){
+    public boolean login(){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter SSN: ");
-        int ssn = Integer.parseInt(scan.nextLine());
+
+        int attempts = 0;
+        while(attempts < 3){
+            System.out.println("Enter SSN: ");
+            int ssn = Integer.parseInt(scan.nextLine());
 
 
-        System.out.println("Enter password: ");
-        int password = Integer.parseInt(scan.nextLine());
+            System.out.println("Enter password: ");
+            int password = Integer.parseInt(scan.nextLine());
 
-        System.out.println("login");
-
-        if(usersMap.containsKey(ssn)){
-            if(usersMap.get(ssn).getPassword() == password){
-                loggedInUser = usersMap.get(ssn);
-                accountMenu();
+            System.out.println("login");
+            if(usersMap.containsKey(ssn)){
+                if(usersMap.get(ssn).getPassword() == password){
+                    loggedInUser = usersMap.get(ssn);
+                    accountMenu();
+                    return true;
+                }
+                else{
+                    attempts++;
+                    System.out.println("Incorrect PIN");
+                }
+            }
+            else{
+                attempts++;
+                System.out.println("User does not exist");
             }
         }
+        return false;
 
     }
 

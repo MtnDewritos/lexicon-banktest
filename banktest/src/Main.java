@@ -20,7 +20,14 @@ public class Main {
                     b.createAccount();
                     break;
                 case "2":
-                    b.login();
+                    boolean failedLogin = !b.login();
+                    if(failedLogin){
+                        System.out.println("Nah, you tried too many times, we're shutting down the bank");
+                        active = false;
+                    }
+                    else{
+                        System.out.println("Thank you for using our services");
+                    }
                     break;
                 case "3":
                     active = false;
